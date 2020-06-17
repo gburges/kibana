@@ -31,7 +31,7 @@ objects:
           - name: SERVER_NAME
             value: kibana
           - name: SERVER_HOST
-            value: "0"
+            value: "localhost"
           - name: ELASTICSEARCH_URL
             valueFrom:
               secretKeyRef:
