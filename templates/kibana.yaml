@@ -35,8 +35,8 @@ objects:
           - name: ELASTICSEARCH_URL
             valueFrom:
               secretKeyRef:
-              key: endpoint
-              name: kibana-elasticsearch
+                key: endpoint
+                name: kibana-elasticsearch
           image: ${IMAGE}:${IMAGE_TAG}
           imagePullPolicy: IfNotPresent
           livenessProbe:
