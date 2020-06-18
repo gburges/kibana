@@ -98,8 +98,8 @@ objects:
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           volumeMounts:
-          - mountPath: /etc/tls/private
-            name: proxy-tls
+          - mountPath: /etc/proxy/secrets
+            name: proxy-cookie
         dnsPolicy: ClusterFirst
         imagePullSecrets:
         - name: quay-cloudservices-pull
@@ -109,10 +109,10 @@ objects:
         securityContext: {}
         terminationGracePeriodSeconds: 30
         volumes:
-        - name: proxy-tls
+        - name: proxy-cookie
           secret:
-          defaultMode: 420
-          secretName: kibana-auth
+            defaultMode: 420
+            secretName: kibana-cookie
     test: false
     triggers:
     - type: ConfigChange
