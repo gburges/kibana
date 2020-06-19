@@ -78,8 +78,6 @@ objects:
           - --provider=openshift
           - --openshift-service-account=kibana
           - --upstream=http://localhost:8080
-          - --tls-cert=/etc/tls/private/tls.crt
-          - --tls-key=/etc/tls/private/tls.key
           - --cookie-secret-file=/etc/proxy/secrets/session_secret
           image: ${OAUTH_IMAGE}:${OAUTH_IMAGE_TAG}
           imagePullPolicy: IfNotPresent
