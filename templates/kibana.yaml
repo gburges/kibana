@@ -4,6 +4,12 @@ metadata:
   name: kibana
 objects:
 - apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    name: kibana
+    annotations:
+      serviceaccounts.openshift.io/oauth-redirectreference.primary: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"kibana"}}'
+- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     name: kibana
