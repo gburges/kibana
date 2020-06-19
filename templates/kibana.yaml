@@ -78,7 +78,6 @@ objects:
                 - NET_RAW
                 - SETGID
                 - SETUID
-            runAsUser: 1014360000
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
         - args:
