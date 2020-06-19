@@ -26,6 +26,7 @@ objects:
         labels:
           app: kibana
       spec:
+        serviceAccountName: kibana
         containers:
         - env:
           - name: SERVER_NAME
