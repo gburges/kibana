@@ -55,9 +55,9 @@ objects:
           imagePullPolicy: Always
           args:
           - -provider=github
-          - -http-address=:3000
+          - -http-address=:8443
           - -email-domain=*
-          - -upstream=http://localhost:3001
+          - -upstream=http://localhost:5601
           - -github-org=${GITHUB_ORG}
           - -github-team=${GITHUB_TEAM}
           env:
@@ -84,7 +84,7 @@ objects:
               cpu: 20m
               memory: 50Mi
           ports:
-          - containerPort: 3000
+          - containerPort: 8443
             name: https
             protocol: TCP
           readinessProbe:
@@ -131,7 +131,7 @@ objects:
   spec:
     host: ${KIBANA_HOST}
     port:
-      targetPort: https
+      targetPort: 8443
     to:
       kind: Service
       name: kibana
