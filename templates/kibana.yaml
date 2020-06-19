@@ -113,25 +113,6 @@ objects:
       app: kibana
     sessionAffinity: None
     type: ClusterIP
-- apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-      prometheus.io/path: /metrics
-      prometheus.io/port: '9114'
-      prometheus.io/scrape: 'true'
-    labels:
-      app: kibana
-    name: kibana
-  spec:
-    ports:
-    - port: 9114
-      protocol: TCP
-      targetPort: 9114
-    selector:
-      app: kibana
-    sessionAffinity: None
-    type: ClusterIP
 parameters:
 - description: Image namespace
   name: IMAGE
