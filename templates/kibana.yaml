@@ -78,6 +78,8 @@ objects:
           - --provider=openshift
           - --openshift-service-account=kibana
           - --upstream=http://localhost:8080
+          - --tls-cert=/etc/tls/private/tls.crt
+          - --tls-key=/etc/tls/private/tls.key
           - --cookie-secret-file=/etc/proxy/secrets/session_secret
           image: ${OAUTH_IMAGE}:${OAUTH_IMAGE_TAG}
           imagePullPolicy: IfNotPresent
@@ -98,6 +100,8 @@ objects:
           volumeMounts:
           - mountPath: /etc/proxy/secrets
             name: proxy-cookie
+          - mountPath: /etc/tls/private
+            name: proxy-tls
         dnsPolicy: ClusterFirst
         imagePullSecrets:
         - name: quay-cloudservices-pull
@@ -111,6 +115,10 @@ objects:
           secret:
             defaultMode: 420
             secretName: kibana-cookie
+        - name: proxy-tls
+          secret:
+            defaultMode: 420
+            secretName: kibana-tls
     test: false
     triggers:
     - type: ConfigChange
