@@ -104,6 +104,8 @@ objects:
     labels:
       app: kibana
     name: kibana
+    annotations:
+      service.alpha.openshift.io/serving-cert-secret-name: proxy-tls
   spec:
     ports:
     - port: 8443
