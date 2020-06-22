@@ -38,7 +38,7 @@ objects:
                 key: endpoint
                 name: kibana-elasticsearch
           image: ${IMAGE}:${IMAGE_TAG}
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           name: kibana
           resources:
             limits:
