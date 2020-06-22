@@ -123,9 +123,6 @@ objects:
     sessionAffinity: None
     type: ClusterIP
 parameters:
-- description: The URL of the elasticsearch instance that the exporter should fetch
-    from
-  name: ELASTICSEARCH_URL
 - name: IMAGE
   value: quay.io/cloudservices/xjoin-es-exporter
 - name: IMAGE_TAG

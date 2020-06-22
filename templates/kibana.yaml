@@ -37,7 +37,7 @@ objects:
               secretKeyRef:
                 key: endpoint
                 name: kibana-elasticsearch
-          image: ${IMAGE}:7.4.2
+          image: ${IMAGE}:${IMAGE_TAG}
           imagePullPolicy: Always
           name: kibana
           resources:
@@ -50,7 +50,7 @@ objects:
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
         - name: oauth2-proxy
-          image: quay.io/pusher/oauth2_proxy:v4.0.0
+          image: ${OAUTH_IMAGE}:${OAUTH_IMAGE_TAG}
           imagePullPolicy: Always
           args:
           - -provider=github
@@ -144,12 +144,12 @@ parameters:
   value: quay.io/cloudservices/kibana-oss
 - description: Image tag
   name: IMAGE_TAG
-  value: "6.5.4"
+  value: "7.4.2"
   required: true
 - name: OAUTH_IMAGE
-  value: registry.reg-aws.openshift.com:443/openshift3/oauth-proxy
+  value: quay.io/pusher/oauth2_proxy
 - name: OAUTH_IMAGE_TAG
-  value: v3.11.43
+  value: v4.0.0
 - name: KIBANA_HOST
   value: kibana.apps.crc-stg-01.o4v9.p1.openshiftapps.com
 - name: GITHUB_ORG
