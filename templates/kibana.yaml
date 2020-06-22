@@ -37,7 +37,7 @@ objects:
               secretKeyRef:
                 key: endpoint
                 name: kibana-elasticsearch
-          image: ${IMAGE}:${IMAGE_TAG}
+          image: ${IMAGE}:7.4.2
           imagePullPolicy: Always
           name: kibana
           resources:
