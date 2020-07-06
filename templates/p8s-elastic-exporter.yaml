@@ -115,7 +115,8 @@ objects:
     name: p8s-elastic-exporter
   spec:
     ports:
-    - port: 9114
+    - name: 9114-tcp
+      port: 9114
       protocol: TCP
       targetPort: 9114
     selector:
