@@ -4,6 +4,12 @@ metadata:
   name: kibana
 objects:
 - apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    name: kibana
+    annotations:
+      serviceaccounts.openshift.io/oauth-redirectreference.primary: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"kibana"}}'
+- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     name: kibana
@@ -53,29 +59,14 @@ objects:
           image: ${OAUTH_IMAGE}:${OAUTH_IMAGE_TAG}
           imagePullPolicy: Always
           args:
-          - -provider=github
-          - -http-address=:8443
-          - -email-domain=*
-          - -upstream=http://localhost:5601
-          - -github-org=${GITHUB_ORG}
-          - -github-team=${GITHUB_TEAM}
-          - -pass-basic-auth=false
-          env:
-          - name: OAUTH2_PROXY_CLIENT_ID
-            valueFrom:
-              secretKeyRef:
-                key: client-id
-                name: ${GITHUB_AUTH_SECRET}
-          - name: OAUTH2_PROXY_CLIENT_SECRET
-            valueFrom:
-              secretKeyRef:
-                key: client-secret
-                name: ${GITHUB_AUTH_SECRET}
-          - name: OAUTH2_PROXY_COOKIE_SECRET
-            valueFrom:
-              secretKeyRef:
-                key: cookie-secret
-                name: ${GITHUB_AUTH_SECRET}
+          - --https-address=:8443
+          - --provider=openshift
+          - --openshift-service-account=kibana
+          - --upstream=http://localhost:5601
+          - --tls-cert=/etc/tls/private/tls.crt
+          - --tls-key=/etc/tls/private/tls.key
+          - --cookie-secret-file=/etc/proxy/secrets/session_secret
+          - --pass-basic-auth=false
           resources:
             limits:
               cpu: 50m
@@ -96,6 +87,11 @@ objects:
             timeoutSeconds: 1
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/proxy/secrets
+            name: proxy-cookie
+          - mountPath: /etc/tls/private
+            name: proxy-tls
         dnsPolicy: ClusterFirst
         imagePullSecrets:
         - name: quay-cloudservices-pull
@@ -104,6 +100,15 @@ objects:
         schedulerName: default-scheduler
         securityContext: {}
         terminationGracePeriodSeconds: 30
+        volumes:
+        - name: proxy-cookie
+          secret:
+            defaultMode: 420
+            secretName: kibana-cookie
+        - name: proxy-tls
+          secret:
+            defaultMode: 420
+            secretName: kibana-tls
     test: false
     triggers:
     - type: ConfigChange
@@ -113,6 +118,8 @@ objects:
     labels:
       app: kibana
     name: kibana
+    annotations:
+      service.alpha.openshift.io/serving-cert-secret-name: kibana-tls
   spec:
     ports:
     - port: 8443
@@ -148,14 +155,8 @@ parameters:
   value: "7.4.2"
   required: true
 - name: OAUTH_IMAGE
-  value: quay.io/pusher/oauth2_proxy
+  value: quay.io/openshift/origin-oauth-proxy
 - name: OAUTH_IMAGE_TAG
-  value: v4.0.0
+  value: "4.4.0"
 - name: KIBANA_HOST
   value: kibana.apps.crc-stg-01.o4v9.p1.openshiftapps.com
-- name: GITHUB_ORG
-  value: app-sre
-- name: GITHUB_TEAM
-  value: crc-stg-01-cluster
-- name: GITHUB_AUTH_SECRET
-  value: kibana-auth-proxy
