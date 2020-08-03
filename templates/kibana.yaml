@@ -144,8 +144,7 @@ objects:
       name: kibana
       weight: 100
     tls:
-      termination: edge
-      insecureEdgeTerminationPolicy: Redirect
+      termination: Reencrypt
 parameters:
 - description: Image namespace
   name: IMAGE
