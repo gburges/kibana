@@ -83,8 +83,10 @@ objects:
             failureThreshold: 3
             periodSeconds: 10
             successThreshold: 1
-            tcpSocket:
+            httpGet:
+              path: /oauth/healthz
               port: https
+              scheme: HTTPS
             timeoutSeconds: 1
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
