@@ -55,6 +55,8 @@ objects:
             value: kibana
           - name: SERVER_HOST
             value: "localhost"
+          - name: SERVER_MAXPAYLOADBYTES
+            value: 8388608
           - name: ELASTICSEARCH_HOSTS
             valueFrom:
               secretKeyRef:
