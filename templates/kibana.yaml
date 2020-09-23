@@ -140,6 +140,13 @@ objects:
               secretKeyRef:
                 key: endpoint
                 name: kibana-elasticsearch
+          resources:
+            limits:
+              cpu: 50m
+              memory: 100Mi
+            requests:
+              cpu: 20m
+              memory: 50Mi
           image: quay.io/app-sre/nginx:alpine
           name: es-init-template
         restartPolicy: Always
