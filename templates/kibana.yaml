@@ -127,7 +127,7 @@ objects:
           - 'set -ex
 
             curl -XPUT "$ELASTICSEARCH_HOSTS/_template/template_1" -H ''Content-Type:
-            application/json'' -d''{"template": "cwl-*","settings": {"index.mapping.total_fields.limit":
+            application/json'' -d''{"template": "cwl-*","settings": {"number_of_shards": 3, "index.mapping.total_fields.limit":
             4000},"mappings": {"dynamic_templates": [{"host_tags": {"match_mapping_type":
             "string","path_match": "*host.tags.*","mapping": {"index": false}}}]}}''
 
