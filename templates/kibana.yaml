@@ -119,6 +119,7 @@ objects:
             name: proxy-tls
         dnsPolicy: ClusterFirst
         imagePullSecrets:
+        - name: quay.io
         - name: quay-cloudservices-pull
         - name: rh-registry-pull
         initContainers:
