@@ -119,7 +119,6 @@ objects:
             name: proxy-tls
         dnsPolicy: ClusterFirst
         imagePullSecrets:
-        - name: quay.io
         - name: quay-cloudservices-pull
         - name: rh-registry-pull
         initContainers:
@@ -148,7 +147,7 @@ objects:
             requests:
               cpu: 50m
               memory: 100Mi
-          image: quay.io/app-sre/nginx:alpine
+          image: quay.io/app-sre/ubi8-ubi-minimal:latest
           name: es-init-template
         restartPolicy: Always
         schedulerName: default-scheduler
