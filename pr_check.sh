@@ -3,7 +3,7 @@
 # --------------------------------------------
 APP_NAME="kibana"  # name of app-sre "application" folder this component lives in
 COMPONENT_NAME="kibana"  # name of app-sre "resourceTemplate" in deploy.yaml for this component
-IMAGE="quay.io/cloudservices/kibana"  
+IMAGE="quay.io/cloudservices/kibana-oss"  
 
 IQE_PLUGINS="kibana"
 IQE_MARKER_EXPRESSION="smoke"
